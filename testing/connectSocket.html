@@ -1,0 +1,29 @@
+<html>
+
+<title>test socket connection</title>
+
+<body>
+    <input id="messageInp" type="text" />
+    <button onclick="sendMessage()">send message</button>
+</body>
+
+<script type="text/javascript">
+
+    const socket = new WebSocket('ws://127.0.0.1:4000');
+
+    socket.addEventListener('open', (ev) => {
+        console.log('connected to socket');
+    })
+
+    socket.addEventListener('message', (ev) => {
+        console.log('Message from server: ' + ev.data);
+    })
+
+    function sendMessage() {
+        let input = document.querySelector('#messageInp');
+        socket.send(input.value);
+    }
+
+</script>
+
+</html>
