@@ -1,0 +1,112 @@
+<html>
+    <head>
+        <title>Global Chat</title>
+        <style rel="Stylesheet">
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                background: #c2c2c2;
+                margin: 0;
+                width: 100vw;
+                height: 100vh;
+            }
+
+            .app-container {
+
+                height: 100%;
+                display: grid;
+                grid-template-rows: auto 1fr auto; 
+            }
+
+            .header {
+                font-size: 3rem;
+                background: #128c7e;
+                color: #fff;
+                padding: 1.5rem 5rem;
+            }
+
+            #messageLog {
+                padding: 1rem 5rem;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+            }
+
+            #messageLog .message {
+                padding: .5rem 1rem;
+                margin: .6rem 0;
+                width: max-content;
+                border-radius: 15px;
+            }
+
+            #messageLog .incomming {
+                background: #DCF8C6;
+                margin-right: auto;
+            }
+
+            #messageLog .outgoing {
+                background: #ECE5DD;
+                margin-left: auto;
+            }
+            
+            #messageLog .message-log {
+                margin: 1rem auto;
+                height: 24px;
+                border-radius: 12px;
+                
+                background: #adadad;
+                color: #404040;
+                padding: .2rem 1rem;
+                font-size: .9rem;
+            }
+
+            .input-container {
+                display: grid;
+                grid-template-columns:1fr auto;
+                background: #adadad;
+                padding: 1rem 5rem 2rem 5rem;
+                gap: .5rem;
+            }
+
+            .input-container input {
+                height: 2.2rem;
+            }
+
+            .input-container input[type="text"] {
+                outline: none;
+                border-radius: 1.1rem;
+                border: none;
+                padding: 0 1.5rem;
+            }
+
+            .input-container input[type="submit"] {
+                width: 2.2rem;
+                border: none;
+                outline: none;
+                border-radius: 50%;
+                font-size: 1.3rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="app-container">
+            <div class="header">TsChat</div>
+            <div id="messageLog">
+                <!-- dummy messages -->
+                <div class="message incomming">Hey man how are you?</div>
+
+                <div class="message outgoing">Very good, how about you?</div>
+
+                <div class="message-log">server is doing great!</div>
+
+            </div>
+            <div class="input-container">
+                <input type="text" id="messageInp" placeholder="type your message here..." />
+                <input type="submit" value=">" />
+            </div>
+        </div>
+    </body>
+</html>
