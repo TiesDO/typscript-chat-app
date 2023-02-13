@@ -69,6 +69,7 @@
                 background: #adadad;
                 padding: 1rem 5rem 2rem 5rem;
                 gap: .5rem;
+                margin: 0;
             }
 
             .input-container input {
@@ -95,18 +96,65 @@
         <div class="app-container">
             <div class="header">TsChat</div>
             <div id="messageLog">
-                <!-- dummy messages -->
-                <div class="message incomming">Hey man how are you?</div>
-
-                <div class="message outgoing">Very good, how about you?</div>
-
-                <div class="message-log">server is doing great!</div>
-
             </div>
-            <div class="input-container">
+            <form class="input-container">
                 <input type="text" id="messageInp" placeholder="type your message here..." />
                 <input type="submit" value=">" />
-            </div>
+            </form>
         </div>
     </body>
+
+    <script type="text/javascript">
+        const form = document.querySelector('form'); 
+        const inputEl = document.querySelector('#messageInp');
+        const messageLog = document.querySelector('#messageLog');
+
+        const socket = new WebSocket('ws://127.0.0.1:4000');
+
+        form.addEventListener('submit', (ev) => {
+            ev.preventDefault();
+
+            sendMessage();
+        });
+
+        socket.addEventListener('open', (ev) => {
+
+        });
+
+        socket.addEventListener('message', (ev) => {
+            let parsed = JSON.parse(ev.data);
+            console.log(parsed);
+            AddMessage(parsed.senderID === 'host_server' ? 'server' : 'other', parsed.data);
+        });
+
+        function sendMessage() {
+            let message = inputEl.value;
+
+            if (message && message.length > 1) {
+                socket.send(message);
+                AddMessage('self', message);
+                inputEl.value = '';
+            }
+            else {
+                alert("Messages need to contain at least one character");
+            }
+        }
+
+        function AddMessage(sender, message) {
+            let classes;
+
+            switch (sender) {
+                case 'self': classes = 'message outgoing'; break;
+                case 'other': classes = 'message incomming'; break;
+                default: classes = 'message-log'; break;
+            }
+
+            let element = document.createElement('div');
+            element.classList = classes;
+            element.innerHTML = message;
+            messageLog.appendChild(element);
+        }
+
+    </script>
+
 </html>
